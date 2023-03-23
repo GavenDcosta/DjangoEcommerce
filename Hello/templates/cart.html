@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+Cart
+{% endblock title %}
+
+{% block body %}
+<div style="display:flex; flex-direction:column">
+    <h4>Items: {{order.get_cart_items}}</h4>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+    
+        {% for item in items %}
+        <tr style="padding-bottom: 30px;">
+            <td scope="col" style="max-width: 70px; height:90px; display:flex"><div style="display:flex; flex-direction:column"><img src="{{item.product.image.url}}" style="max-width: 50px; height:50px; display:flex" class="rounded mx-auto d-block" alt="..."><p>{{item.product.name}}</p></div></td>
+            <td scope="col">{{item.product.price|floatformat:2}}</td>
+            <td scope="col">{{item.quantity}} <div style="display: flex; flex-direction:column;"><button style=" width:10px; height:10px; position:relative" data-product="{{item.product.id}}" data-action="add" class="update-cart"><svg style="position:absolute" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><g><path fill="none" d="M0 0h24v24H0z"></path><path d="M12 8l6 6H6z"></path></g></svg></button><button  style=" width:10px; height:10px; position:relative" data-product="{{item.product.id}}" data-action="remove" class="update-cart"><svg style="position:absolute" data-product="{{item.id}}" data-action="add" class="update-cart" stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M5.8 9.7l6.2 6.3 6.2-6.3c.2-.2.3-.5.3-.7s-.1-.5-.3-.7c-.2-.2-.4-.3-.7-.3h-11c-.3 0-.5.1-.7.3-.2.2-.3.4-.3.7s.1.5.3.7z"></path></svg></button></div></td>
+            <!-- <td scope="col">{{item.quantity}}</td> -->
+            <td scope="col">{{item.get_total}}</td>
+          </tr>
+        {% endfor %}
+
+   
+
+    <tfoot style="padding-top: 90px;">
+        <td>
+            <div style="display: flex; flex-direction:column;padding-top: 50px; ">
+                <h4>Grand-Total: {{order.get_cart_total}}</h4>
+
+
+            <div style="display:flex;flex-direction:row; gap:2em">
+                <a href="/checkout"><button type="button" class="btn btn-primary">Checkout</button></a>
+                
+                <a href="/category/Monsoon"><button type="button" class="btn btn-primary">Continue-Shopping</button></a>
+            </div>
+               
+            </div>
+           
+        </td>
+      </tfoot>
+        
+</div>
+
+
+ 
+{% endblock body %}
